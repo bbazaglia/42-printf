@@ -1,9 +1,9 @@
 
-/* 
+/* Notes:
 
-va_list: typically implemented as pointer to a structure that holds information about the variable arguments
--> when declaring a variable of type va_list, it's not necessary to use the * operator, because va_list is already a pointer type
--> you can pass the va_list variable directly to va_start, va_arg, va_copy, and va_end to access the individual arguments in the list
+When declaring a variable of type va_list, it's not necessary to use the * operator, because va_list is already a pointer type.
+
+Before using va_arg, you need to declare a va_list object and initialize it using va_start
 
 */
 
@@ -11,15 +11,20 @@ va_list: typically implemented as pointer to a structure that holds information 
 
 int ft_printf(const char *format, ...)
 {
-    // ap (argument pointer)
+    // declare an object 'ap' (argument pointer)
+    // data type that represents the variable argument list
     va_list ap;
-    int count; 
 
+    // va_start: initializes ap to the beginning of the variable argument list
     va_start(ap, format);
-    count = 0;
 
+    // keep track of the number of characters printed
+    int count = 0;
+
+    // the 'format' pointer is used to iterate through the string
     while (*format)
     {
+        // if the character is a format specifier
         if (*format == '%')
         {
             format++;
@@ -29,12 +34,12 @@ int ft_printf(const char *format, ...)
                 count += ft_putstr(va_arg(ap, char *));
             else if (*format == 'd')
                 count += ft_putnbr(va_arg(ap, int));
-            /* else if (*format == 'x')
+           /*  else if (*format == 'x')
                 count += ft_puthex(va_arg(ap, unsigned int));
             else if (*format == 'X')
                 count += ft_putHex(va_arg(ap, unsigned int));
             else if (*format == 'p')
-                count += ft_putptr(va_arg(ap, void *)); */
+                count += ft_putptr(va_arg(ap, void *)) */; 
             else if (*format == '%')
                 count += ft_putchar('%');
         }
