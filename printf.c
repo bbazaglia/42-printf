@@ -7,7 +7,7 @@ va_list: typically implemented as pointer to a structure that holds information 
 
 */
 
-#include "printf.c"
+#include "ft_printf.h"
 
 int ft_printf(const char *format, ...)
 {
