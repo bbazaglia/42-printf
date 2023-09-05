@@ -17,7 +17,7 @@ int	ft_putnbr(int n)
 
 	num = (size_t)n;
     count = 0;
-	if (num < 0)
+	if (n < 0)
 	{
 		num *= -1;
 		count += ft_putchar('-');
