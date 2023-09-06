@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 13:26:49 by bbazagli          #+#    #+#             */
+/*   Updated: 2023/09/06 13:28:16 by bbazagli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_putstr(char *str)
 {
-	int	count;
+	int	i;
 
-	count = 0;
-	while (str[count])
-		ft_putchar(str[count++]);
-	return (count);
+	i = 0;
+	while (str[i])
+		ft_putchar(str[i++]);
+	return (i);
 }
 
 int	ft_putnbr(int n)
@@ -59,7 +71,7 @@ int	ft_puthex(unsigned int num)
 	return (count);
 }
 
-int	ft_putHex(unsigned int num)
+int	ft_puthex_upper(unsigned int num)
 {
 	int		count;
 	char	*hex;
@@ -70,8 +82,8 @@ int	ft_putHex(unsigned int num)
 		count += ft_putchar(hex[num]);
 	else
 	{
-		count += ft_putHex(num / 16);
-		count += ft_putHex(num % 16);
+		count += ft_puthex_upper(num / 16);
+		count += ft_puthex_upper(num % 16);
 	}
 	return (count);
 }

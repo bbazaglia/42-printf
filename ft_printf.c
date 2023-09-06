@@ -1,12 +1,14 @@
-
-/* Notes:
-
-When declaring a variable of type va_list, it's not necessary to use the * operator, because va_list is already a pointer type.
-
-Before using va_arg, you need to declare a va_list object and initialize it using va_start.
-
-The functions used in this code were adapted to return an int, as return value of printf typically represents the number of characters printed.
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/06 13:26:38 by bbazagli          #+#    #+#             */
+/*   Updated: 2023/09/06 13:29:31 by bbazagli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
@@ -15,7 +17,7 @@ int	ft_putchar(int c)
 	char	ch;
 
 	ch = (char)c;
-	return(write(1, &ch, 1));
+	return (write(1, &ch, 1));
 }
 
 int	print_format(char specifier, va_list ap)
@@ -64,13 +66,16 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-int main(void)
+int	main(void)
 {
-    char *ptr = "Hello world";
-    int num = 22;
-    ft_printf("\nTests made with the original function:\n");
-    printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
-    ft_printf("\nTests made with my function:\n");
-    ft_printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
-    return (0);
+	char	*ptr;
+	int		num;
+
+	ptr = "Hello world";
+	num = 22;
+	ft_printf("\nTests made with the original function:\n");
+	printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
+	ft_printf("\nTests made with my function:\n");
+	ft_printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
+	return (0);
 }
