@@ -1,43 +1,28 @@
-# Compiler and flags
-CC = gcc
+CC = cc
+
 CFLAGS = -Wall -Wextra -Werror
 
-# Source files and object files
-SRC = libftprintf.c  # Add your source files here
-OBJ = $(SRC:.c=.o) # Generate a list of object files based on the source files
+NAME = libftprintf.a
 
-# Name of the static library
-LIB = libftprintf.a
+MANDATORY_SRC = ft_printf.c ft_printf_utils.c
 
-# All rule (default rule)
-all: $(LIB)
+MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
 
-# Rule to build the static library
-$(LIB): $(OBJ)
-    ar rc $(LIB) $(OBJ) # Create am archive (LIB) and add files (OBJ) to it 
-    ranlib $(LIB) #Update the library index for efficient linking
+all: $(NAME)
 
-# Rule to compile source files into object files
-%.o: %.c
-    $(CC) $(CFLAGS) -c -o $@ $< 
+$(NAME): $(MANDATORY_OBJ)
 
-# -c flag tells the compiler to generate an object file
-# -o flag tells the compiler where to place the generated output (e.g., object files)
-# $@ is an automatic variable that represents the target of the rule
-# $< is an automatic variable that represents the first prerequisite (dependency) of the rule
+%.o: %.c ft_printf.h
+	$(CC) $(CFLAGS) -c $< -o $@
+	ar rcs $(NAME) $@
 
-# Rule to clean 
 clean:
-    rm -f $(OBJ)
+	rm -f $(MANDATORY_OBJ)
 
-# Rule to clean and remove the library
 fclean: clean
-    rm -f $(LIB)
+	rm -f $(NAME)
 
-# Rebuild rule (clean and build)
 re: fclean all
 
-# Phony targets (targets that are not actual files)
-.PHONY: all clean fclean
-
+.PHONY: all clean fclean re 
 

@@ -1,22 +1,22 @@
 #include "ft_printf.h"
 
-int ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-    int i;
+	int	count;
 
-    i = 0;
-    while (str[i])
-        ft_putchar(str[i++]);
-    return (i);
+	count = 0;
+	while (str[count])
+		ft_putchar(str[count++]);
+	return (count);
 }
 
 int	ft_putnbr(int n)
 {
 	size_t	num;
-    int count;
+	int		count;
 
 	num = (size_t)n;
-    count = 0;
+	count = 0;
 	if (n < 0)
 	{
 		num *= -1;
@@ -29,49 +29,49 @@ int	ft_putnbr(int n)
 		count += ft_putnbr(num / 10);
 		count += ft_putnbr(num % 10);
 	}
-    return (count);
+	return (count);
 }
 
-int ft_putptr(void *ptr)
+int	ft_putptr(void *ptr)
 {
-    int count;
+	int	count;
 
-    count = 0;
-    count += ft_putstr("0x");
-    count += ft_puthex((size_t)ptr);
-    return (count);
+	count = 0;
+	count += ft_putstr("0x");
+	count += ft_puthex((size_t)ptr);
+	return (count);
 }
 
-int ft_puthex(unsigned int num)
+int	ft_puthex(unsigned int num)
 {
-    int count;
-    char *hex;
+	int		count;
+	char	*hex;
 
-    count = 0;
-    hex = "0123456789abcdef";
-    if (num < 16)
-        count += ft_putchar(hex[num]);
-    else
-    {
-        count += ft_puthex(num / 16);
-        count += ft_puthex(num % 16);
-    }
-    return (count);
+	count = 0;
+	hex = "0123456789abcdef";
+	if (num < 16)
+		count += ft_putchar(hex[num]);
+	else
+	{
+		count += ft_puthex(num / 16);
+		count += ft_puthex(num % 16);
+	}
+	return (count);
 }
 
-int ft_putHex(unsigned int num)
+int	ft_putHex(unsigned int num)
 {
-    int count;
-    char *hex;
+	int		count;
+	char	*hex;
 
-    count = 0;
-    hex = "0123456789ABCDEF";
-    if (num < 16)
-        count += ft_putchar(hex[num]);
-    else
-    {
-        count += ft_putHex(num / 16);
-        count += ft_putHex(num % 16);
-    }
-    return (count);
+	count = 0;
+	hex = "0123456789ABCDEF";
+	if (num < 16)
+		count += ft_putchar(hex[num]);
+	else
+	{
+		count += ft_putHex(num / 16);
+		count += ft_putHex(num % 16);
+	}
+	return (count);
 }
