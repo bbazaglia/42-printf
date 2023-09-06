@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:27:01 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/06 13:27:06 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:13:13 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_putchar(int c);
 int	ft_putstr(char *str);
 int	ft_putnbr(int n);
 int	ft_putptr(void *ptr);
-int	ft_puthex(unsigned int num);
-int	ft_putHex(unsigned int num);
+int	ft_puthex(size_t num);
+int	ft_puthex_upper(size_t num);
 
 #endif

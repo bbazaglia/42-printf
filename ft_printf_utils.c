@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:26:49 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/06 13:28:16 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:16:37 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 int	ft_putstr(char *str)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (str[i])
-		ft_putchar(str[i++]);
-	return (i);
+	count = 0;
+	if (!str)
+		return (ft_putstr("(null)"));
+	while (str[count])
+		ft_putchar(str[count++]);
+	return (count);
 }
 
 int	ft_putnbr(int n)
@@ -48,13 +50,15 @@ int	ft_putptr(void *ptr)
 {
 	int	count;
 
+	if (!ptr)
+		return (ft_putstr("nil"));
 	count = 0;
 	count += ft_putstr("0x");
 	count += ft_puthex((size_t)ptr);
 	return (count);
 }
 
-int	ft_puthex(unsigned int num)
+int	ft_puthex(size_t num)
 {
 	int		count;
 	char	*hex;
@@ -71,7 +75,7 @@ int	ft_puthex(unsigned int num)
 	return (count);
 }
 
-int	ft_puthex_upper(unsigned int num)
+int	ft_puthex_upper(size_t num)
 {
 	int		count;
 	char	*hex;
