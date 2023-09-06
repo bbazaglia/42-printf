@@ -18,63 +18,50 @@ int	ft_putchar(int c)
 	return(write(1, &ch, 1));
 }
 
-int ft_printf(const char *format, ...)
+int	print_format(char specifier, va_list ap)
 {
-    // declare an object 'ap' (argument pointer)
-    // data type that represents the variable argument list
-    va_list ap;
+	int	count;
 
-    // va_start: initializes ap to the beginning of the variable argument list
-    va_start(ap, format);
+	count = 0;
+	if (specifier == 'c')
+		count += ft_putchar(va_arg(ap, int));
+	else if (specifier == 's')
+		count += ft_putstr(va_arg(ap, char *));
+	else if (specifier == 'p')
+		count += ft_putptr(va_arg(ap, void *));
+	else if (specifier == 'd' || specifier == 'i')
+		count += ft_putnbr(va_arg(ap, int));
+	else if (specifier == 'u')
+		count += ft_putnbr(va_arg(ap, unsigned int));
+	else if (specifier == 'x')
+		count += ft_puthex(va_arg(ap, unsigned int));
+	else if (specifier == 'X')
+		count += ft_puthex_upper(va_arg(ap, unsigned int));
+	else
+		count += write(1, &specifier, 1);
+	return (count);
+}
 
-    // keep track of the number of characters printed
-    int count = 0;
+int	ft_printf(const char *format, ...)
+{
+	va_list	ap;
+	int		count;
 
-    // the 'format' pointer is used to iterate through the string
-    while (*format)
-    {
-        // if the character is a format specifier
-        if (*format == '%')
-        {
-            format++;
-            // print a single character
-            if (*format == 'c')
-                count += ft_putchar(va_arg(ap, int));
-
-            // print a string
-            else if (*format == 's')
-                count += ft_putstr(va_arg(ap, char *));
-            
-            // print a pointer in hexadecimal format
-            else if (*format == 'p')
-                count += ft_putptr(va_arg(ap, void *)); 
-
-            // print a decimal number or an integer in base 10
-            else if (*format == 'd' || *format == 'i') 
-                count += ft_putnbr(va_arg(ap, int));
-            
-            // print an unsigned decimal number
-            else if (*format == 'u')
-                count += ft_putnbr(va_arg(ap, unsigned int));
-
-            // print a number in hexadecimal format
-            else if (*format == 'x')
-                count += ft_puthex(va_arg(ap, unsigned int));
-
-            // print a number in hexadecimal format (uppercase)
-            else if (*format == 'X')
-                count += ft_putHex(va_arg(ap, unsigned int));
-
-            // print a percent sign
-            else if (*format == '%')
-                count += ft_putchar('%');
-        }
-        else
-            count += ft_putchar(*format);
-        format++;
-    }
-    va_end(ap);
-    return count; // Return the total number of characters printed
+	va_start(ap, format);
+	count = 0;
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			count += print_format(*format, ap);
+		}
+		else
+			count += ft_putchar(*format);
+		format++;
+	}
+	va_end(ap);
+	return (count);
 }
 
 int main(void)
