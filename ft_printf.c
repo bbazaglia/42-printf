@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:26:38 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/11 11:34:29 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:53:35 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	print_format(char specifier, va_list ap)
 		count += ft_putchar(va_arg(ap, int));
 	else if (specifier == 's')
 		count += ft_putstr(va_arg(ap, char *));
-	else if (specifier == 'p')
-		count += ft_putptr(va_arg(ap, size_t));
 	else if (specifier == 'd' || specifier == 'i')
 		count += ft_putnbr(va_arg(ap, int));
 	else if (specifier == 'u')
 		count += ft_unsigned_putnbr(va_arg(ap, unsigned int));
+	else if (specifier == 'p')
+		count += ft_putptr(va_arg(ap, size_t));
 	else if (specifier == 'x' || specifier == 'X')
-		count += ft_puthex(va_arg(ap, unsigned long int), specifier);
+		count += ft_puthex(va_arg(ap, unsigned int), specifier);
 	else
 		count += write(1, &specifier, 1);
 	return (count);

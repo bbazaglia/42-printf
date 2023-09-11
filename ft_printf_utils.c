@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:26:49 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/11 11:26:46 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:56:14 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_unsigned_putnbr(unsigned int n)
 	return (count);
 }
 
-int	ft_puthex(unsigned long int num, char specifier)
+int	ft_puthex(size_t num, char specifier)
 {
 	unsigned int	count;
 	char			*hex;
@@ -80,7 +80,7 @@ int	ft_putptr(size_t ptr)
 {
 	int	count;
 
-	if (!ptr || ptr == 0)
+	if (!ptr)
 		return (ft_putstr("(nil)"));
 	count = 0;
 	count += ft_putstr("0x");
