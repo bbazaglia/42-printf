@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:26:38 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/06 14:13:55 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:34:29 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ int	ft_putchar(int c)
 	return (write(1, &ch, 1));
 }
 
+int	ft_putstr(char *str)
+{
+	int	count;
+
+	count = 0;
+	if (!str)
+		return (ft_putstr("(null)"));
+	while (str[count])
+		ft_putchar(str[count++]);
+	return (count);
+}
+
 int	print_format(char specifier, va_list ap)
 {
 	int	count;
@@ -30,15 +42,13 @@ int	print_format(char specifier, va_list ap)
 	else if (specifier == 's')
 		count += ft_putstr(va_arg(ap, char *));
 	else if (specifier == 'p')
-		count += ft_putptr(va_arg(ap, void *));
+		count += ft_putptr(va_arg(ap, size_t));
 	else if (specifier == 'd' || specifier == 'i')
 		count += ft_putnbr(va_arg(ap, int));
 	else if (specifier == 'u')
-		count += ft_putnbr(va_arg(ap, unsigned int));
-	else if (specifier == 'x')
-		count += ft_puthex(va_arg(ap, size_t));
-	else if (specifier == 'X')
-		count += ft_puthex_upper(va_arg(ap, size_t));
+		count += ft_unsigned_putnbr(va_arg(ap, unsigned int));
+	else if (specifier == 'x' || specifier == 'X')
+		count += ft_puthex(va_arg(ap, unsigned long int), specifier);
 	else
 		count += write(1, &specifier, 1);
 	return (count);
@@ -64,18 +74,4 @@ int	ft_printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (count);
-}
-
-int	main(void)
-{
-	char	*ptr;
-	int		num;
-
-	ptr = "Hello world";
-	num = 22;
-	ft_printf("\nTests made with the original function:\n");
-	printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
-	ft_printf("\nTests made with my function:\n");
-	ft_printf("Single character: %c\nString: %s\nAddress: %p\nHexadecimal number in lowercase: %x\nHexadecimal number in uppercase: %X\nUnsigned number: %u\nDecimal number: %d\nInteger: %i\n", 'c', "Hello world", ptr, 753, 255, num, 0, -10);
-	return (0);
 }

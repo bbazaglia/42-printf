@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:27:01 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/06 14:13:13 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:22:28 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 int	ft_putchar(int c);
 int	ft_putstr(char *str);
 int	ft_putnbr(int n);
-int	ft_putptr(void *ptr);
-int	ft_puthex(size_t num);
-int	ft_puthex_upper(size_t num);
+int	ft_putptr(size_t ptr);
+int	ft_unsigned_putnbr(unsigned int n);
+int	ft_puthex(unsigned long int num, char type);
+int	ft_printf(const char *format, ...);
 
 #endif
