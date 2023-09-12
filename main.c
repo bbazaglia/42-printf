@@ -1,8 +1,24 @@
-// #include "ft_printf.h"
 #include "ft_printf_bonus.h"
+#include <stdio.h>
 
 int	main(void)
 {
+
+	printf(NULL);
+	ft_printf(NULL);
+
+	printf("%s", NULL);
+	ft_printf("%s", NULL);
+
+	printf("%s", "");
+	ft_printf("%s", "");
+
+	printf("%d\n", 0);
+	ft_printf("%d\n", 0);
+
+	printf("%i\n", -2147483648);
+	ft_printf("%i\n", -2147483648);
+
 	char	*ptr;
 	int		num;
 

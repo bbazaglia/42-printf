@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 13:26:38 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/11 14:12:21 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:42:07 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	ft_printf(const char *format, ...)
 	va_list	ap;
 	int		count;
 
+	if (format == NULL)
+		return (-1);
 	va_start(ap, format);
 	count = 0;
 	while (*format)

@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:33:07 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/12 10:56:34 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:41:18 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	print_hex(char specifier, va_list ap, const t_flags *flags)
 
 int	print_format(char specifier, va_list ap, const t_flags *flags)
 {
-	int				count;
+	int	count;
 
 	count = 0;
 	if (specifier == 'c')
@@ -90,6 +90,8 @@ int	ft_printf(const char *format, ...)
 	int		count;
 	t_flags	flags;
 
+	if (format == NULL)
+		return (-1);
 	va_start(ap, format);
 	count = 0;
 	while (*format)
