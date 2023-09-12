@@ -6,19 +6,11 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:33:07 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/12 10:35:42 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:56:34 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-
-int	ft_putchar(int c)
-{
-	char	ch;
-
-	ch = (char)c;
-	return (write(1, &ch, 1));
-}
 
 void	find_flags(const char **format, t_flags *flags)
 {
@@ -55,10 +47,24 @@ int	print_decimal(va_list ap, const t_flags *flags)
 	return (count);
 }
 
-int	print_format(char specifier, va_list ap, const t_flags *flags)
+int	print_hex(char specifier, va_list ap, const t_flags *flags)
 {
 	int				count;
 	unsigned int	unsigned_num;
+
+	count = 0;
+	unsigned_num = va_arg(ap, unsigned int);
+	if (flags->hash_flag && unsigned_num != 0 && specifier == 'x')
+		count += ft_putstr("0x");
+	else if (flags->hash_flag && unsigned_num != 0 && specifier == 'X')
+		count += ft_putstr("0X");
+	count += ft_puthex(unsigned_num, specifier);
+	return (count);
+}
+
+int	print_format(char specifier, va_list ap, const t_flags *flags)
+{
+	int				count;
 
 	count = 0;
 	if (specifier == 'c')
@@ -72,14 +78,7 @@ int	print_format(char specifier, va_list ap, const t_flags *flags)
 	else if (specifier == 'p')
 		count += ft_putptr(va_arg(ap, size_t));
 	else if (specifier == 'x' || specifier == 'X')
-	{
-		unsigned_num = va_arg(ap, unsigned int);
-		if (flags->hash_flag && unsigned_num != 0 && specifier == 'x')
-			count += ft_putstr("0x");
-		else if (flags->hash_flag && unsigned_num != 0 && specifier == 'X')
-			count += ft_putstr("0X");
-		count += ft_puthex(unsigned_num, specifier);
-	}
+		count += print_hex(specifier, ap, flags);
 	else
 		count += write(1, &specifier, 1);
 	return (count);

@@ -6,7 +6,7 @@
 #    By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/06 13:27:12 by bbazagli          #+#    #+#              #
-#    Updated: 2023/09/11 16:32:27 by bbazagli         ###   ########.fr        #
+#    Updated: 2023/09/12 10:51:12 by bbazagli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME = libftprintf.a
 
 MANDATORY_SRC = ft_printf.c ft_printf_utils.c
 
-BONUS_SRC = ft_printf_bonus.c ft_printf_utils_bonus.c
+BONUS_SRC = ft_printf_bonus.c ft_printf_utils_bonus.c ft_putchar_bonus.c
 
 MANDATORY_OBJ = $(MANDATORY_SRC:%.c=%.o)
 
