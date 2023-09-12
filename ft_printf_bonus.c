@@ -6,7 +6,7 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:33:07 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/11 19:14:12 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:35:42 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@ int	ft_putchar(int c)
 
 	ch = (char)c;
 	return (write(1, &ch, 1));
-}
-
-int	ft_putstr(char *str)
-{
-	int	count;
-
-	count = 0;
-	if (!str)
-		return (ft_putstr("(null)"));
-	while (str[count])
-		ft_putchar(str[count++]);
-	return (count);
 }
 
 void	find_flags(const char **format, t_flags *flags)
@@ -49,33 +37,36 @@ void	find_flags(const char **format, t_flags *flags)
 	}
 }
 
-int	print_format(char specifier, va_list ap, const t_flags *flags)
+int	print_decimal(va_list ap, const t_flags *flags)
 {
 	int	count;
-    int num;
-	unsigned int unsigned_num;
-    
+	int	num;
+
+	count = 0;
+	num = va_arg(ap, int);
+	if (num >= 0)
+	{
+		if (flags->plus_flag)
+			count += ft_putchar('+');
+		else if (flags->space_flag)
+			count += ft_putchar(' ');
+	}
+	count += ft_putnbr(num);
+	return (count);
+}
+
+int	print_format(char specifier, va_list ap, const t_flags *flags)
+{
+	int				count;
+	unsigned int	unsigned_num;
+
 	count = 0;
 	if (specifier == 'c')
 		count += ft_putchar(va_arg(ap, int));
 	else if (specifier == 's')
-	{
-		if (flags->space_flag)
-			count += ft_putchar(' ');
 		count += ft_putstr(va_arg(ap, char *));
-	}
-    else if (specifier == 'd' || specifier == 'i')
-    {
-        num = va_arg(ap, int);
-        if (num >= 0) 
-        {
-            if (flags->plus_flag) 
-                count += ft_putchar('+');
-            else if (flags->space_flag) 
-                count += ft_putchar(' ');
-        }
-        count += ft_putnbr(num);
-    }
+	else if (specifier == 'd' || specifier == 'i')
+		count += print_decimal(ap, flags);
 	else if (specifier == 'u')
 		count += ft_unsigned_putnbr(va_arg(ap, unsigned int));
 	else if (specifier == 'p')
@@ -83,8 +74,10 @@ int	print_format(char specifier, va_list ap, const t_flags *flags)
 	else if (specifier == 'x' || specifier == 'X')
 	{
 		unsigned_num = va_arg(ap, unsigned int);
-		if (flags->hash_flag && unsigned_num != 0)
+		if (flags->hash_flag && unsigned_num != 0 && specifier == 'x')
 			count += ft_putstr("0x");
+		else if (flags->hash_flag && unsigned_num != 0 && specifier == 'X')
+			count += ft_putstr("0X");
 		count += ft_puthex(unsigned_num, specifier);
 	}
 	else
@@ -110,7 +103,7 @@ int	ft_printf(const char *format, ...)
 		}
 		else
 			count += ft_putchar(*format);
-        format++;
+		format++;
 	}
 	va_end(ap);
 	return (count);

@@ -6,11 +6,23 @@
 /*   By: bbazagli <bbazagli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 16:30:30 by bbazagli          #+#    #+#             */
-/*   Updated: 2023/09/11 16:30:58 by bbazagli         ###   ########.fr       */
+/*   Updated: 2023/09/12 10:31:18 by bbazagli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
+
+int	ft_putstr(char *str)
+{
+	int	count;
+
+	count = 0;
+	if (!str)
+		return (ft_putstr("(null)"));
+	while (str[count])
+		ft_putchar(str[count++]);
+	return (count);
+}
 
 int	ft_putnbr(int n)
 {
